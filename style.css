@@ -1,0 +1,63 @@
+/* ===== 100% HTML + CSS. No JavaScript anywhere. ===== */
+
+/* 1. COLORS: change these and the whole page changes */
+:root {
+  --blue: #000000;
+  --white: #f8f8f8;
+  --red: #ff0202; 
+  --gray: #555255;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+*, *::before, *::after { box-sizing: inherit; }
+
+body {
+  margin: 0; min-height: 100vh; padding: 24px;
+  background: var(--white); color: var(--blue);
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+  display: grid; place-items: center;
+}
+main { width: 100%; max-width: 560px; text-align: center; }
+h1 {
+  font-family: "Arial Rounded MT Bold", "Arial Black", system-ui, sans-serif;
+  font-size: clamp(3rem, 14vw, 5rem); line-height: 1; margin: 0 0 8px;
+}
+.details { margin: 0 0 24px; font-weight: 600; }
+
+/* 2. THE STAGE: holds the picture AND the dots. Only one shows at a time. */
+.stage {
+  background: var(--blue); border-radius: 28px; padding: 16px;
+  margin-bottom: 20px; min-height: 300px;
+  display: grid; place-items: center; overflow: hidden;
+}
+.pic { width: 100%; height: auto; display: block; }
+
+/* 3. THE DOTS: braille characters typed straight into the HTML.
+   line-height 1 keeps the rows of dots tight together. */
+.dots {
+  display: none; margin: 0;
+  color: var(--white);
+  font-family: "DejaVu Sans Mono", Menlo, Consolas, monospace;
+  font-size: min(12px, 1.8vw);
+  line-height: 1; white-space: pre;
+}
+
+/* 4. THE BUTTON: a hidden checkbox + a label that looks like a button.
+   Checked = hide the picture, show the dots. */
+#toggle { position: absolute; opacity: 0; pointer-events: none; }
+#toggle:checked ~ .stage .pic  { display: none; }
+#toggle:checked ~ .stage .dots { display: block; }
+
+.btn {
+  display: inline-block; background: var(--red); color: var(--white);
+  font-weight: 700; font-size: 1.1rem;
+  padding: 14px 28px; border-radius: 999px;
+  border: 3px solid var(--blue); box-shadow: 0 5px 0 var(--gray);
+  cursor: pointer; user-select: none;
+}
+.btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--gray); }
+#toggle:focus-visible ~ .btn { outline: 3px solid var(--red); outline-offset: 4px; }
+.btn .on { display: none; }
+#toggle:checked ~ .btn .off { display: none; }
+#toggle:checked ~ .btn .on  { display: inline; }
